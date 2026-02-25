@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Oswald:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 2%;
+    --foreground: 0 0% 85%;
+
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 85%;
+
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 85%;
+
+    --primary: 215 20% 35%;
+    --primary-foreground: 0 0% 90%;
+
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 0 0% 70%;
+
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 50%;
+
+    --accent: 45 80% 40%;
+    --accent-foreground: 0 0% 2%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 215 20% 35%;
+
+    --radius: 0.25rem;
+
+    /* Custom noir tokens */
+    --void: 0 0% 2%;
+    --clinical: 215 20% 35%;
+    --alert: 0 72% 51%;
+    --faded-gold: 45 80% 40%;
+    --smoke: 0 0% 50%;
+
+    --font-display: 'Oswald', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --shadow-chiaroscuro: 0 0 80px 20px hsl(0 0% 0% / 0.8);
+    --shadow-clinical: 0 0 40px 10px hsl(215 20% 35% / 0.15);
+    --shadow-alert: 0 0 30px 5px hsl(0 72% 51% / 0.3);
+
+    --gradient-void: radial-gradient(ellipse at center, hsl(0 0% 6%) 0%, hsl(0 0% 2%) 70%);
+    --gradient-clinical: linear-gradient(180deg, hsl(215 20% 35% / 0.1) 0%, transparent 100%);
+    --gradient-release: radial-gradient(ellipse at center, hsl(45 80% 90%) 0%, hsl(0 0% 100%) 100%);
+    --gradient-vignette: radial-gradient(ellipse at center, transparent 30%, hsl(0 0% 0% / 0.9) 100%);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-mono);
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: hsl(var(--alert) / 0.4);
+    color: hsl(var(--foreground));
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--void));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--clinical) / 0.5);
+  }
+}
+
+@layer components {
+  /* Glitch text effect */
+  .glitch-text {
+    position: relative;
+    animation: glitch-skew 4s infinite linear alternate-reverse;
+  }
+
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch-text::before {
+    color: hsl(var(--alert));
+    animation: glitch-anim 3s infinite linear alternate-reverse;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-2px, 0);
+  }
+
+  .glitch-text::after {
+    color: hsl(var(--clinical));
+    animation: glitch-anim2 2s infinite linear alternate-reverse;
+    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+    transform: translate(2px, 0);
+  }
+
+  /* Flicker effect */
+  .flicker {
+    animation: flicker 4s infinite;
+  }
+
+  /* Scanline overlay */
+  .scanlines::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      hsl(0 0% 0% / 0.03) 2px,
+      hsl(0 0% 0% / 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Breathing text */
+  .breathe-in {
+    animation: breathe-in 4s ease-in-out infinite;
+  }
+
+  .breathe-out {
+    animation: breathe-out 4s ease-in-out infinite;
+  }
+
+  /* Vignette overlay */
+  .vignette::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-vignette);
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* Cursor hide */
+  .cursor-none * {
+    cursor: none !important;
+  }
+
+  /* Case file stamp */
+  .stamp {
+    font-family: var(--font-display);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 2px solid currentColor;
+    padding: 0.25em 0.75em;
+    transform: rotate(-3deg);
+  }
+
+  /* Dossier grid line */
+  .dossier-line {
+    border-bottom: 1px solid hsl(var(--clinical) / 0.2);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Morphine pump button */
+  .pump-button {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    border: 1px solid hsl(var(--faded-gold) / 0.5);
+    background: hsl(var(--void));
+    color: hsl(var(--faded-gold));
+    padding: 1rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.6s ease;
+    cursor: pointer;
+  }
+
+  .pump-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: hsl(var(--faded-gold) / 0.05);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s ease;
+  }
+
+  .pump-button:hover::before {
+    transform: scaleX(1);
+  }
+
+  .pump-button:hover {
+    border-color: hsl(var(--faded-gold));
+    box-shadow: 0 0 30px hsl(var(--faded-gold) / 0.2);
+  }
+}
+
+@keyframes glitch-anim {
+  0% { transform: translate(0); }
+  20% { transform: translate(-3px, 2px); }
+  40% { transform: translate(-3px, -2px); }
+  60% { transform: translate(3px, 2px); }
+  80% { transform: translate(3px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { transform: translate(0); }
+  20% { transform: translate(3px, -1px); }
+  40% { transform: translate(3px, 1px); }
+  60% { transform: translate(-3px, -1px); }
+  80% { transform: translate(-3px, 1px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); }
+  20% { transform: skew(0deg); }
+  21% { transform: skew(1deg); }
+  22% { transform: skew(0deg); }
+  100% { transform: skew(0deg); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  41% { opacity: 1; }
+  42% { opacity: 0.6; }
+  43% { opacity: 1; }
+  44% { opacity: 0.8; }
+  45% { opacity: 1; }
+  80% { opacity: 1; }
+  81% { opacity: 0.7; }
+  82% { opacity: 1; }
+}
+
+@keyframes breathe-in {
+  0%, 100% { opacity: 0; transform: scale(0.98); }
+  25%, 50% { opacity: 1; transform: scale(1); }
+  75% { opacity: 0; transform: scale(0.98); }
+}
+
+@keyframes breathe-out {
+  0%, 50% { opacity: 0; transform: scale(0.98); }
+  75% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.98); }
+}
