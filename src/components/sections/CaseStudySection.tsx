@@ -2,10 +2,12 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import lifeBefore from "@/assets/life-before.jpg";
 import medicalScan from "@/assets/medical-scan.jpg";
+import { useHeartbeepSound } from "@/hooks/use-ambient-audio";
 
 const CaseStudySection = () => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: false, margin: "-20%" });
+  useHeartbeepSound(inView);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -19,6 +21,7 @@ const CaseStudySection = () => {
       ref={ref}
       className="relative min-h-screen py-24 md:py-32"
       style={{ background: "var(--gradient-void)" }}
+      data-nav-id="casestudy"
     >
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header */}
@@ -63,11 +66,11 @@ const CaseStudySection = () => {
             <div className="space-y-3 font-mono text-sm">
               <div className="dossier-line flex justify-between">
                 <span className="text-smoke">Name:</span>
-                <span className="text-foreground">Daniel J.</span>
+                <span className="text-foreground">Harish Rana.</span>
               </div>
               <div className="dossier-line flex justify-between">
                 <span className="text-smoke">Age:</span>
-                <span className="text-foreground">21</span>
+                <span className="text-foreground">32</span>
               </div>
               <div className="dossier-line flex justify-between">
                 <span className="text-smoke">Major:</span>
@@ -107,7 +110,7 @@ const CaseStudySection = () => {
             <div className="space-y-3 font-mono text-sm">
               <div className="dossier-line flex justify-between">
                 <span className="text-smoke">Incident:</span>
-                <span className="text-alert">C4 Spinal Injury / Late-Stage Glioblastoma</span>
+                <span className="text-alert">Fall from 4th Floor — Severe Traumatic Brain Injury</span>
               </div>
               <div className="dossier-line flex justify-between">
                 <span className="text-smoke">New Status:</span>
@@ -121,6 +124,29 @@ const CaseStudySection = () => {
                 </motion.span>
               </div>
             </div>
+
+            {/* Diagnostic tags */}
+            <motion.div
+              className="mt-6 flex flex-wrap gap-2"
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ delay: 1.3, duration: 0.8 }}
+            >
+              {[
+                "Permanent Vegetative State (PVS)",
+                "100% Quadriplegia",
+                "Tracheostomy Tube Dependent",
+                "Clinically Assisted Nutrition & Hydration",
+                "Zero Prognosis of Recovery — Medical Board Confirmed",
+              ].map((tag, i) => (
+                <span
+                  key={i}
+                  className="font-mono text-[10px] tracking-wider text-alert border border-alert/30 bg-alert/5 px-2 py-1 uppercase"
+                >
+                  {tag}
+                </span>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
 
@@ -132,11 +158,12 @@ const CaseStudySection = () => {
           transition={{ delay: 1.2, duration: 1.5 }}
         >
           <p className="font-mono text-sm md:text-base leading-relaxed text-secondary-foreground">
-            "He wasn't sentenced by a judge. He was sentenced by a tumor. One moment, he was
-            studying for finals. The next, he was staring at a ceiling tile for 18 hours a day."
+            "He wasn't sentenced by a judge. He was sentenced by gravity.
+            One moment, he was studying for finals. The next, a single fall
+            from the fourth floor stole 13 years from him."
           </p>
           <p className="font-mono text-sm md:text-base leading-relaxed text-smoke italic">
-            "His mind is still memorizing formulas. His body is a concrete block."
+            "His mind still screams.His body never answers."
           </p>
         </motion.div>
       </div>

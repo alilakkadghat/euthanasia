@@ -1,7 +1,82 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import horizonImg from "@/assets/horizon.jpg";
 import { playReleaseSound } from "@/hooks/use-ambient-audio";
+
+const ReleasedNarrative = () => {
+  const [phase, setPhase] = useState(0);
+  const narrativeRef = useRef<HTMLDivElement>(null);
+  const narrativeInView = useInView(narrativeRef, { once: false });
+
+  useEffect(() => {
+    if (!narrativeInView) return;
+    const t1 = setTimeout(() => setPhase(1), 2000);
+    const t2 = setTimeout(() => setPhase(2), 4500);
+    const t3 = setTimeout(() => setPhase(3), 7000);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+  }, [narrativeInView]);
+
+  return (
+    <div ref={narrativeRef} className="relative z-10 text-center">
+      {/* Phase 0: RELEASED */}
+      <motion.p
+        className="font-display text-2xl md:text-4xl font-light tracking-[0.3em] text-background/60"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 2 }}
+      >
+        RELEASED
+      </motion.p>
+
+      <motion.div
+        className="mt-8 w-32 h-px bg-background/30 mx-auto"
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ delay: 3, duration: 2 }}
+      />
+
+      {/* Phase 1: Name and dates */}
+      {phase >= 1 && (
+        <motion.p
+          className="mt-8 font-light text-sm text-gray-400 tracking-widest"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+        >
+          Harish Rana. 2013 – 2026.
+        </motion.p>
+      )}
+
+      {/* Phase 2: Mother's line */}
+      {phase >= 2 && (
+        <motion.p
+          className="mt-6 font-light text-xs text-gray-400 italic"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+        >
+          His mother said goodbye. He was finally allowed to go.
+        </motion.p>
+      )}
+
+      {/* Phase 3: Legal coda */}
+      {phase >= 3 && (
+        <motion.p
+          className="mt-6 font-light text-xs text-gray-400 italic"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+        >
+          Passive euthanasia. Permitted. Barely.
+        </motion.p>
+      )}
+    </div>
+  );
+};
 
 const VerdictSection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -17,6 +92,7 @@ const VerdictSection = () => {
     <section
       ref={ref}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      data-nav-id="verdict"
     >
       {/* Hospital bed with horizon background */}
       <div className="absolute inset-0">
@@ -66,7 +142,7 @@ const VerdictSection = () => {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 1, duration: 1.5 }}
             >
-              "For a 21-year-old trapped in a broken vessel, the cruelest
+              "For a 32-year-old trapped in a broken vessel, the cruelest
               punishment is forcing them to exist without living."
             </motion.p>
 
@@ -90,6 +166,16 @@ const VerdictSection = () => {
             >
               MORPHINE PUMP CONTROL // PATIENT 21-B
             </motion.p>
+
+            <motion.p
+              className="mt-4 font-mono text-[9px] tracking-widest text-center"
+              style={{ color: "hsl(var(--smoke) / 0.5)" }}
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ delay: 2.6 }}
+            >
+              [ THIS IS A METAPHOR. IN INDIA, THIS BUTTON DOES NOT EXIST. ]
+            </motion.p>
           </motion.div>
         ) : (
           <motion.div
@@ -108,22 +194,7 @@ const VerdictSection = () => {
             />
 
             {/* Flatline to peace */}
-            <motion.div
-              className="relative z-10 text-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2, duration: 2 }}
-            >
-              <p className="font-display text-2xl md:text-4xl font-light tracking-[0.3em] text-background/60">
-                RELEASED
-              </p>
-              <motion.div
-                className="mt-8 w-32 h-px bg-background/30 mx-auto"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 3, duration: 2 }}
-              />
-            </motion.div>
+            <ReleasedNarrative />
           </motion.div>
         )}
       </AnimatePresence>

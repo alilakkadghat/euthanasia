@@ -7,6 +7,7 @@ const breathingLines = [
   { text: "I want to scream.", type: "exhale" },
   { text: "I am 21 years old.", type: "inhale" },
   { text: "I am 100 years old.", type: "exhale" },
+  { text: "I want to choose.", type: "inhale" },
 ];
 
 const PrisonSection = () => {
@@ -17,6 +18,7 @@ const PrisonSection = () => {
   useHeartbeepSound(inView);
   const [lockScroll, setLockScroll] = useState(false);
   const [hasLocked, setHasLocked] = useState(false);
+  const [showRestored, setShowRestored] = useState(false);
 
   // Scroll lock effect
   const preventScroll = useCallback((e: Event) => {
@@ -36,6 +38,8 @@ const PrisonSection = () => {
       // Unlock after 4 seconds
       const timer = setTimeout(() => {
         setLockScroll(false);
+        setShowRestored(true);
+        setTimeout(() => setShowRestored(false), 1500);
         document.body.classList.remove("cursor-none");
         window.removeEventListener("wheel", preventScroll);
         window.removeEventListener("touchmove", preventScroll);
@@ -63,6 +67,7 @@ const PrisonSection = () => {
     <section
       ref={ref}
       className="relative min-h-screen flex items-center justify-center bg-background overflow-hidden"
+      data-nav-id="prison"
     >
       {/* Pitch black with subtle clinical glow */}
       <div className="absolute inset-0" style={{ background: "var(--gradient-void)" }} />
@@ -87,9 +92,8 @@ const PrisonSection = () => {
           {breathingLines.map((line, i) => (
             <motion.p
               key={i}
-              className={`absolute font-display text-3xl md:text-6xl font-light tracking-wide ${
-                line.type === "inhale" ? "text-foreground" : "text-smoke"
-              }`}
+              className={`absolute font-display text-3xl md:text-6xl font-light tracking-wide ${line.type === "inhale" ? "text-foreground" : "text-smoke"
+                }`}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={
                 currentLine === i
@@ -125,6 +129,18 @@ const PrisonSection = () => {
             transition={{ duration: 2, repeat: 1 }}
           >
             AUTONOMY REVOKED — PLEASE WAIT
+          </motion.p>
+        )}
+
+        {showRestored && (
+          <motion.p
+            className="mt-4 font-mono text-[10px] tracking-widest"
+            style={{ color: "#4CAF50" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 1, 1, 0] }}
+            transition={{ duration: 1.5, times: [0, 0.2, 0.8, 1] }}
+          >
+            [ AUTONOMY RESTORED ]
           </motion.p>
         )}
       </div>
