@@ -11,8 +11,8 @@ const stations = [
     { id: "arguments", label: "ARGUMENTS" },
     { id: "timeline", label: "THE RECORD" },
     { id: "global", label: "THE WORLD" },
-    { id: "verdict", label: "VERDICT" },
-    { id: "conclusion", label: "RELEASE" },
+    { id: "conclusion", label: "CONCLUSION" },
+    { id: "verdict", label: "RELEASE" },
 ];
 
 const PatientJourneyNav = () => {
@@ -72,8 +72,8 @@ const PatientJourneyNav = () => {
                         >
                             <span
                                 className={`font-mono text-[8px] tracking-widest transition-opacity duration-300 text-smoke ${isActive
-                                        ? "opacity-60"
-                                        : "opacity-0 group-hover:opacity-40"
+                                    ? "opacity-60"
+                                    : "opacity-0 group-hover:opacity-40"
                                     }`}
                                 aria-label={station.label}
                             >
@@ -81,8 +81,8 @@ const PatientJourneyNav = () => {
                             </span>
                             <div
                                 className={`rounded-full transition-all duration-300 ${isActive
-                                        ? "w-2.5 h-2.5 bg-alert"
-                                        : "w-1.5 h-1.5 border border-smoke/40"
+                                    ? "w-2.5 h-2.5 bg-alert"
+                                    : "w-1.5 h-1.5 border border-smoke/40"
                                     }`}
                                 aria-label={`${station.label} ${isActive ? "(current)" : ""}`}
                             />

@@ -122,7 +122,7 @@ const VerdictSection = () => {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 0.3 }}
             >
-              Section IV — The Verdict
+              SECTION IX — THE RELEASE
             </motion.p>
 
             <motion.h2

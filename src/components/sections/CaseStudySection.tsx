@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import lifeBefore from "@/assets/life-before.jpg";
+import lifeBefore from "@/assets/harish-rana.jpeg";
 import medicalScan from "@/assets/medical-scan.jpg";
 import { useHeartbeepSound } from "@/hooks/use-ambient-audio";
 
@@ -32,7 +32,7 @@ const CaseStudySection = () => {
           transition={{ duration: 1 }}
         >
           <p className="font-mono text-xs tracking-[0.3em] text-clinical mb-2 uppercase">
-            Section II
+            Section IV
           </p>
           <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground tracking-wide">
             THE CASE STUDY
@@ -70,7 +70,7 @@ const CaseStudySection = () => {
               </div>
               <div className="dossier-line flex justify-between">
                 <span className="text-smoke">Age:</span>
-                <span className="text-foreground">32</span>
+                <span className="text-foreground">19</span>
               </div>
               <div className="dossier-line flex justify-between">
                 <span className="text-smoke">Major:</span>

@@ -99,7 +99,7 @@ const ArgumentsSection = () => {
         >
             {/* Section label */}
             <p className="absolute top-8 left-6 md:left-16 font-mono text-[10px] tracking-[0.4em] text-smoke/40 uppercase">
-                SECTION IV — THE ARGUMENTS
+                SECTION V — THE ARGUMENTS
             </p>
 
             <div className="max-w-4xl mx-auto pt-16">

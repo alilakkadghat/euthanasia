@@ -5,8 +5,8 @@ import { useVentilatorSound, useHeartbeepSound } from "@/hooks/use-ambient-audio
 const breathingLines = [
   { text: "I want to graduate.", type: "inhale" },
   { text: "I want to scream.", type: "exhale" },
-  { text: "I am 21 years old.", type: "inhale" },
-  { text: "I am 100 years old.", type: "exhale" },
+  { text: "I am 19 years old.", type: "inhale" },
+  { text: "I am 32 years old.", type: "exhale" },
   { text: "I want to choose.", type: "inhale" },
 ];
 

@@ -65,10 +65,10 @@ const Index = () => {
         <LegalTimelineSection />
         {/* 9. Global Practices */}
         <GlobalPracticesSection />
-        {/* 10. Verdict + RELEASED */}
-        <VerdictSection />
-        {/* 11. Conclusion */}
+        {/* 10. Conclusion */}
         <ConclusionSection />
+        {/* 11. Verdict + RELEASED */}
+        <VerdictSection />
       </main>
     </>
   );

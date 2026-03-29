@@ -45,7 +45,7 @@ const LegalTimelineSection = () => {
         >
             {/* Section label */}
             <p className="absolute top-8 left-6 md:left-16 font-mono text-[10px] tracking-[0.4em] text-smoke/40 uppercase">
-                SECTION V — THE RECORD
+                SECTION VI — THE RECORD
             </p>
 
             <div className="max-w-3xl mx-auto pt-16">

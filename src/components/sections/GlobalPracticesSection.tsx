@@ -48,7 +48,7 @@ const GlobalPracticesSection = () => {
         >
             {/* Section label */}
             <p className="absolute top-8 left-6 md:left-16 font-mono text-[10px] tracking-[0.4em] text-smoke/40 uppercase">
-                SECTION VI — THE WORLD
+                SECTION VII — THE WORLD
             </p>
 
             <div className="max-w-5xl mx-auto pt-16">
